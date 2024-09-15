@@ -448,3 +448,5 @@ local function injectBackdoor()
     ssTest()
 end
 
+executeButton.MouseButton1Click:Connect(executeScript)
+injectButton.MouseButton1Click:Connect(injectBackdoor)
