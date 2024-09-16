@@ -167,10 +167,26 @@ local function createRemoteBackdoor()
         updateNotification("RemoteBackdoor created.")
     else
         updateNotification("RemoteBackdoor already exists.")
-        local remoteBackdoor = game.ReplicatedStorage:FindFirstChild("RemoteBackdoor")
     end
+    
+    local scriptCode = scriptInput.Text
+    if scriptCode and scriptCode ~= "" then
+        local success, result = pcall(function()
+            remoteBackdoor:InvokeServer(scriptCode) -- Using InvokeServer on RemoteBackdoor
+        end)
+        if success then
+            updateNotification("Executed via RemoteBackdoor")
+            print("| SS ? Jawir! : Sukses mas!!")
+        else
+            updateNotification("Execution failed via RemoteBackdoor.")
+            print("| SS ? Jawir! : Wes gagal, iki lho mas: ", result)
+        end
+    end
+
     return remoteBackdoor
 end
+
+
 
 local function createRemoteEvent()
     local remoteEvent = game.ReplicatedStorage:FindFirstChild("RemoteEvent")
@@ -181,8 +197,22 @@ local function createRemoteEvent()
         print("RemoteEvent created.")
     else
         print("RemoteEvent already exists.")
-        local remoteEvent = game.ReplicatedStorage:FindFirstChild("RemoteEvent")
     end
+
+    local scriptCode = scriptInput.Text
+    if scriptCode and scriptCode ~= "" then
+        local success, result = pcall(function()
+            remoteEvent:FireServer(scriptCode) -- Using FireServer on RemoteEvent
+        end)
+        if success then
+            updateNotification("Executed via RemoteEvent")
+            print("| SS ? Jawir! : Sukses mas!!")
+        else
+            updateNotification("Execution failed via RemoteEvent.")
+            print("| SS ? Jawir! : Wes gagal, iki lho mas: ", result)
+        end
+    end
+
     return remoteEvent
 end
 
