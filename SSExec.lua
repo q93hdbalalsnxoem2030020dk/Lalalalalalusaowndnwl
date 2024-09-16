@@ -453,11 +453,11 @@ local function executeScript()
                 remoteBackdoor:InvokeServer(scriptCode) -- Using InvokeServer on RemoteBackdoor
             end)
             if success then
-                updateNotification("Executed via RemoteBackdoor")
-                print("| SS ? Jawir! : Executed successfully via RemoteBackdoor")
+                updateNotification("Executed")
+                print("| SS ? Jawir! : Sukses mas!!")
             else
                 updateNotification("Execution failed via RemoteBackdoor.")
-                print("| SS ? Jawir! : Failed, reason: ", result)
+                print("| SS ? Jawir! : Wes gagal, iki lho mas: ", result)
             end
         else
             updateNotification("RemoteBackdoor not found.")
@@ -469,10 +469,10 @@ local function executeScript()
             end)
             if success then
                 updateNotification("Executed via RemoteEvent")
-                print("| SS ? Jawir! : Executed successfully via RemoteEvent")
+                print("| SS ? Jawir! : Sukses mas!!")
             else
                 updateNotification("Execution failed via RemoteEvent.")
-                print("| SS ? Jawir! : Failed, reason: ", result)
+                print("| SS ? Jawir! : Wes gagal, iki lho mas: ", result)
             end
         else
             updateNotification("RemoteEvent not found.")
