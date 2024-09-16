@@ -524,7 +524,6 @@ local function injectBackdoor()
     serverHint()
 end
 
-serverHint() -- If Failed 
 executeButton.MouseButton1Click:Connect(executeScript)
 injectButton.MouseButton1Click:Connect(injectBackdoor)
 -- // Ngawuor wkwk
